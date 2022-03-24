@@ -24,15 +24,24 @@ class MainActivity : AppCompatActivity() {
             rvChat.adapter = chatListAdapter
             btnSendBroadcast.setOnClickListener {
                 val broadcastMessage = binding.etSendBroadcast.text.toString()
-                if (broadcastMessage.isNotEmpty()) viewModel.sendBroadcastMessage(broadcastMessage)
+                if (broadcastMessage.isNotEmpty()) {
+                    binding.etSendBroadcast.setText("")
+                    viewModel.sendBroadcastMessage(broadcastMessage)
+                }
             }
             btnJoinRoom.setOnClickListener {
                 val roomId = binding.etJoinRoom.text.toString()
-                if (roomId.isNotEmpty()) viewModel.joinChatRoom(roomId)
+                if (roomId.isNotEmpty()) {
+                    binding.etJoinRoom.setText("")
+                    viewModel.joinChatRoom(roomId)
+                }
             }
             btnSendMessage.setOnClickListener {
                 val roomMessage = binding.etSendMassage.text.toString()
-                if (roomMessage.isNotEmpty()) viewModel.sendRoomMessage(roomMessage)
+                if (roomMessage.isNotEmpty()) {
+                    binding.etSendMassage.setText("")
+                    viewModel.sendRoomMessage(roomMessage)
+                }
             }
         }
         observe()
