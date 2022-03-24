@@ -32,8 +32,8 @@ class CocketClient internal constructor(
     }
 
     class Builder {
-        private lateinit var baseUrl: String
-        private lateinit var options: IO.Options
+        private var baseUrl: String = ""
+        private var options = IO.Options()
 
         fun baseUrl(baseUrl: String) =
             apply {
