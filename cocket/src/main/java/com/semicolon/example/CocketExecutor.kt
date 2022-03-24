@@ -1,7 +1,7 @@
-package com.semicolon.cocket
+package com.semicolon.example
 
 import com.google.gson.Gson
-import com.semicolon.cocket.annotation.*
+import com.semicolon.example.annotation.*
 import io.socket.client.Ack
 import io.socket.client.Socket
 import kotlinx.coroutines.channels.awaitClose

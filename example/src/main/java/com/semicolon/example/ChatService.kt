@@ -1,8 +1,8 @@
-package com.semicolon.cocket
+package com.semicolon.example
 
-import com.semicolon.cocket.annotation.Connect
-import com.semicolon.cocket.annotation.Receive
-import com.semicolon.cocket.annotation.Send
+import com.semicolon.example.annotation.Connect
+import com.semicolon.example.annotation.Receive
+import com.semicolon.example.annotation.Send
 import kotlinx.coroutines.flow.Flow
 
 interface ChatService {

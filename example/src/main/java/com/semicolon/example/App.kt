@@ -1,4 +1,4 @@
-package com.semicolon.cocket
+package com.semicolon.example
 
 import android.app.Application
 import dagger.hilt.android.HiltAndroidApp

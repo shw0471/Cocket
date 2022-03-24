@@ -1,4 +1,4 @@
-package com.semicolon.cocket
+package com.semicolon.example
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -6,7 +6,7 @@ import android.widget.Toast
 import android.widget.Toast.LENGTH_SHORT
 import androidx.activity.viewModels
 import androidx.databinding.DataBindingUtil
-import com.semicolon.cocket.databinding.ActivityMainBinding
+import com.semicolon.example.databinding.ActivityMainBinding
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

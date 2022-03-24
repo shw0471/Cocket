@@ -1,4 +1,4 @@
-package com.semicolon.cocket.annotation;
+package com.semicolon.example.annotation;
 
 import static java.lang.annotation.ElementType.METHOD;
 import static java.lang.annotation.RetentionPolicy.RUNTIME;
@@ -8,6 +8,5 @@ import java.lang.annotation.Target;
 
 @Target(METHOD)
 @Retention(RUNTIME)
-public @interface Receive {
-    String value() default "";
+public @interface Disconnect {
 }
