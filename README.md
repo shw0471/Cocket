@@ -2,6 +2,8 @@
 [![](https://jitpack.io/v/shw0471/Cocket.svg)](https://jitpack.io/#shw0471/Cocket)
 
 socket.io client with Coroutine
+
+It supports socket.io v2
 ###
 ## Download
 ``` groovy
