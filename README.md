@@ -2,7 +2,7 @@
 [![](https://jitpack.io/v/shw0471/Cocket.svg)](https://jitpack.io/#shw0471/Cocket)
 
 socket.io client with Coroutine
-
+###
 ## Download
 ``` groovy
 allprojects {
@@ -17,7 +17,7 @@ dependencies {
 }
 ```
 Add it in your build.gradle
-
+###
 ## Usage
 ``` kotlin
 interface ChatService {
@@ -45,7 +45,7 @@ interface ChatService {
 }
 ```
 Declare a socket.io service interface
-
+###
 ``` kotlin
 val cocket = CocketClient.Builder()
   .baseUrl("http://example.com")
@@ -54,7 +54,7 @@ val cocket = CocketClient.Builder()
 val chatService = cocket.create(ChatService::class.java)
 ```
 Then, create a cocket client and service instance.
-
+###
 ``` kotlin
 chatService.connectChatService()
 
@@ -71,8 +71,7 @@ charService.receiveBroadcast().collect { }
 chatService.receiveRoomMessage().collect { }
 ```
 Now you can use it like this
-
-
+###
 ## LICENSE
 ```
 
