@@ -74,7 +74,6 @@ Now you can use it like this
 ###
 ## LICENSE
 ```
-
 MIT License
 
 Copyright (c) 2022 shw0471
