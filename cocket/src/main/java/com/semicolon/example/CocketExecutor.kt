@@ -24,7 +24,7 @@ class CocketExecutor(
         return when (method.annotations.first()) {
             is Connect -> connect()
             is Disconnect -> disconnect()
-            is Emit -> send(method, args)
+            is Emit -> emit(method, args)
             is Off -> off(method)
             else -> throw IllegalArgumentException("invalid annotation.")
         }
@@ -33,8 +33,8 @@ class CocketExecutor(
     fun execute(method: Method): Any {
         require(method.annotations.size == 1) { "There should be only one annotation." }
         return when (method.annotations.first()) {
-            is On -> receive(method)
-            is Once -> receiveOnce(method)
+            is On -> on(method)
+            is Once -> once(method)
             is Off -> off(method)
             else -> throw IllegalArgumentException("invalid annotation.")
         }
@@ -59,7 +59,7 @@ class CocketExecutor(
         }
     }
 
-    private suspend fun send(method: Method, args: Array<Any>): Any {
+    private suspend fun emit(method: Method, args: Array<Any>): Any {
         require(args.size > 1) { "@Send method should have one parameter" }
         val event = (method.annotations[0] as Emit).value
         val json = JSONObject(Gson().toJson(args[0]))
@@ -75,7 +75,7 @@ class CocketExecutor(
         }
     }
 
-    private fun receive(method: Method): Any {
+    private fun on(method: Method): Any {
         require(method.returnType == Flow::class.java) { "@Receive method should return coroutine Flow." }
         val event = (method.annotations[0] as On).value
         val genericType = (method.genericReturnType as ParameterizedType).actualTypeArguments[0]
@@ -89,7 +89,7 @@ class CocketExecutor(
         }
     }
 
-    private fun receiveOnce(method: Method): Any {
+    private fun once(method: Method): Any {
         require(method.returnType == Flow::class.java) { "@ReceiveOnce method should return coroutine Flow." }
         val event = (method.annotations[0] as On).value
         val genericType = (method.genericReturnType as ParameterizedType).actualTypeArguments[0]
