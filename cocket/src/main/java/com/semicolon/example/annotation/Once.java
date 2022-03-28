@@ -8,6 +8,6 @@ import java.lang.annotation.Target;
 
 @Target(METHOD)
 @Retention(RUNTIME)
-public @interface ReceiveOnce {
+public @interface Once {
     String value() default "";
 }

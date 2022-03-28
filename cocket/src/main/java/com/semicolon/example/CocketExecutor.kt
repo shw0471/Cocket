@@ -33,7 +33,7 @@ class CocketExecutor(
         require(method.annotations.size == 1) { "There should be only one annotation." }
         return when(method.annotations.first()) {
             is On -> receive(method)
-            is ReceiveOnce -> receiveOnce(method)
+            is Once -> receiveOnce(method)
             else -> throw IllegalArgumentException("invalid annotation.")
         }
     }
