@@ -17,7 +17,9 @@ class ChatViewModel @Inject constructor(
     val roomMessageLiveData = MutableLiveData<String>()
 
     fun joinChatService() = viewModelScope.launch {
-        chatService.connectChatService()
+        chatService.connectChatService(
+            "Bearer testtokensdwfwqrqefwdefwqedwwdf"
+        )
         chatService.receiveBroadcast().collect {
             broadcastMessageLiveData.value = it.content
         }

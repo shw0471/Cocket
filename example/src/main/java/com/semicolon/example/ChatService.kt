@@ -6,7 +6,9 @@ import kotlinx.coroutines.flow.Flow
 interface ChatService {
 
     @Connect
-    suspend fun connectChatService()
+    suspend fun connectChatService(
+        @Header("Authorization") token: String
+    )
 
     @Disconnect
     suspend fun disconnectChatService()
