@@ -12,7 +12,7 @@ class CocketClient internal constructor(
             service.classLoader,
             arrayOf(service)
         ) { _, method, arguments ->
-            cocketExecutor.execute(method, arguments)
+            cocketExecutor.execute(method, arguments ?: arrayOf())
         }
         return service.cast(proxyInstance) ?: throw TypeCastException()
     }
