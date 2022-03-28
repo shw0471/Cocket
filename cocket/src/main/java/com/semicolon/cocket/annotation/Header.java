@@ -9,5 +9,5 @@ import java.lang.annotation.Target;
 @Target(PARAMETER)
 @Retention(RUNTIME)
 public @interface Header {
-    String value() default "";
+    String value();
 }
