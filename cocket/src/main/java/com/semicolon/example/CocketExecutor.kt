@@ -32,7 +32,7 @@ class CocketExecutor(
     fun execute(method: Method): Any {
         require(method.annotations.size == 1) { "There should be only one annotation." }
         return when(method.annotations.first()) {
-            is Receive -> receive(method)
+            is On -> receive(method)
             is ReceiveOnce -> receiveOnce(method)
             else -> throw IllegalArgumentException("invalid annotation.")
         }
@@ -75,7 +75,7 @@ class CocketExecutor(
 
     private fun receive(method: Method): Any {
         require(method.returnType == Flow::class.java) { "@Receive method should return coroutine Flow." }
-        val event = (method.annotations[0] as Receive).value
+        val event = (method.annotations[0] as On).value
         val genericType = (method.genericReturnType as ParameterizedType).actualTypeArguments[0]
         return callbackFlow<Any> {
             socketClient.on(event) {
@@ -89,7 +89,7 @@ class CocketExecutor(
 
     private fun receiveOnce(method: Method): Any {
         require(method.returnType == Flow::class.java) { "@ReceiveOnce method should return coroutine Flow." }
-        val event = (method.annotations[0] as Receive).value
+        val event = (method.annotations[0] as On).value
         val genericType = (method.genericReturnType as ParameterizedType).actualTypeArguments[0]
         return callbackFlow<Any> {
             socketClient.on(event) {

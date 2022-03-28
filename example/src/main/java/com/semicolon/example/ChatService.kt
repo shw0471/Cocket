@@ -1,7 +1,7 @@
 package com.semicolon.example
 
 import com.semicolon.example.annotation.Connect
-import com.semicolon.example.annotation.Receive
+import com.semicolon.example.annotation.On
 import com.semicolon.example.annotation.Emit
 import kotlinx.coroutines.flow.Flow
 
@@ -19,9 +19,9 @@ interface ChatService {
     @Emit("send.room")
     suspend fun sendRoomMessage(roomMessage: RoomMessage)
 
-    @Receive("message")
+    @On("message")
     fun receiveBroadcast(): Flow<BroadcastMessage>
 
-    @Receive("roomMessage")
+    @On("roomMessage")
     fun receiveRoomMessage(): Flow<RoomMessage>
 }
