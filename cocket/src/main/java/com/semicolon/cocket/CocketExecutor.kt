@@ -3,7 +3,9 @@ package com.semicolon.cocket
 import com.google.gson.Gson
 import com.semicolon.cocket.annotation.*
 import io.socket.client.Ack
+import io.socket.client.Manager
 import io.socket.client.Socket
+import io.socket.engineio.client.Transport
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.channels.awaitClose
@@ -40,7 +42,7 @@ class CocketExecutor(
     private suspend fun executeSuspend(method: Method, args: Array<Any>): Any {
         require(method.annotations.size == 1) { "There should be only one annotation." }
         return when (method.annotations.first()) {
-            is Connect -> connect()
+            is Connect -> connect(method, args)
             is Disconnect -> disconnect()
             is Emit -> emit(method, args)
             is Off -> off(method)
@@ -58,11 +60,23 @@ class CocketExecutor(
         }
     }
 
-    private suspend fun connect() {
+    @Suppress("UNCHECKED_CAST")
+    private suspend fun connect(method: Method, args: Array<Any>) {
+        val headers = mutableMapOf<String, String>()
+        method.parameterAnnotations.mapIndexed { index, arrayOfAnnotations ->
+            if (arrayOfAnnotations.firstOrNull() is Header)
+                headers[(arrayOfAnnotations[0] as Header).value] = args[index].toString()
+        }
+        println(headers)
+        socketClient.io().on(Manager.EVENT_TRANSPORT) {
+            (it[0] as Transport).on(Transport.EVENT_REQUEST_HEADERS) { args ->
+                val requestHeaders = args[0] as MutableMap<String, List<String>>
+                headers.map { header -> requestHeaders.put(header.key, listOf(header.value)) }
+            }
+        }
         socketClient.connect()
         return suspendCoroutine {
             socketClient.once(Socket.EVENT_CONNECT) { _ ->
-                println("연결됨")
                 it.resume(Unit)
             }
         }
