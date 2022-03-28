@@ -30,20 +30,23 @@ interface ChatService {
   @Disconnect
   suspend fun disconnectChatService()
 
-  @Send("send.broadcast")
+  @Emit("send.broadcast")
   suspend fun sendBroadCastMessage(broadcastMessage: BroadcastMessage)
 
-  @Send("join")
+  @Emit("join")
   suspend fun joinChatRoom(roomInfo: RoomInfo)
 
-  @Send("send.room")
+  @Emit("send.room")
   suspend fun sendRoomMessage(roomMessage: RoomMessage)
 
-  @Receive("message")
+  @On("message")
   fun receiveBroadcast(): Flow<BroadcastMessage>
 
-  @Receive("roomMessage")
+  @On("roomMessage")
   fun receiveRoomMessage(): Flow<RoomMessage>
+  
+  @Off
+  fun off()
 }
 ```
 Declare a socket.io service interface
@@ -71,6 +74,8 @@ chatService.sendRoomMessage(RoomMessage("Hi", "abcd"))
 charService.receiveBroadcast().collect { }
 
 chatService.receiveRoomMessage().collect { }
+
+chatService.off()
 ```
 Now you can use it like this
 ###
