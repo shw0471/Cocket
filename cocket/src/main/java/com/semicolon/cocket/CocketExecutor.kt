@@ -67,7 +67,6 @@ class CocketExecutor(
             if (arrayOfAnnotations.firstOrNull() is Header)
                 headers[(arrayOfAnnotations[0] as Header).value] = args[index].toString()
         }
-        println(headers)
         socketClient.io().on(Manager.EVENT_TRANSPORT) {
             (it[0] as Transport).on(Transport.EVENT_REQUEST_HEADERS) { args ->
                 val requestHeaders = args[0] as MutableMap<String, List<String>>
