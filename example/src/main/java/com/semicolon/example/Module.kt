@@ -1,5 +1,6 @@
 package com.semicolon.example
 
+import com.semicolon.cocket.CocketClient
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

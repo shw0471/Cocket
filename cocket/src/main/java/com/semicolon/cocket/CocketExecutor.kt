@@ -1,7 +1,7 @@
-package com.semicolon.example
+package com.semicolon.cocket
 
 import com.google.gson.Gson
-import com.semicolon.example.annotation.*
+import com.semicolon.cocket.annotation.*
 import io.socket.client.Ack
 import io.socket.client.Socket
 import kotlinx.coroutines.CoroutineScope
@@ -37,7 +37,7 @@ class CocketExecutor(
         return COROUTINE_SUSPENDED
     }
 
-    suspend fun executeSuspend(method: Method, args: Array<Any>): Any {
+    private suspend fun executeSuspend(method: Method, args: Array<Any>): Any {
         require(method.annotations.size == 1) { "There should be only one annotation." }
         return when (method.annotations.first()) {
             is Connect -> connect()
@@ -48,7 +48,7 @@ class CocketExecutor(
         }
     }
 
-    fun execute(method: Method): Any {
+    private fun execute(method: Method): Any {
         require(method.annotations.size == 1) { "There should be only one annotation." }
         return when (method.annotations.first()) {
             is On -> on(method)

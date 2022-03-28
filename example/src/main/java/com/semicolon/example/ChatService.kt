@@ -1,6 +1,6 @@
 package com.semicolon.example
 
-import com.semicolon.example.annotation.*
+import com.semicolon.cocket.annotation.*
 import kotlinx.coroutines.flow.Flow
 
 interface ChatService {

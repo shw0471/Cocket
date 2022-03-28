@@ -1,4 +1,4 @@
-package com.semicolon.example
+package com.semicolon.cocket
 
 import io.socket.client.IO
 import java.lang.reflect.Proxy
