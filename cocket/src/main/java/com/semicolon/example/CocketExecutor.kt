@@ -25,15 +25,17 @@ class CocketExecutor(
             is Connect -> connect()
             is Disconnect -> disconnect()
             is Emit -> send(method, args)
+            is Off -> off(method)
             else -> throw IllegalArgumentException("invalid annotation.")
         }
     }
 
     fun execute(method: Method): Any {
         require(method.annotations.size == 1) { "There should be only one annotation." }
-        return when(method.annotations.first()) {
+        return when (method.annotations.first()) {
             is On -> receive(method)
             is Once -> receiveOnce(method)
+            is Off -> off(method)
             else -> throw IllegalArgumentException("invalid annotation.")
         }
     }
@@ -98,6 +100,15 @@ class CocketExecutor(
                 else trySend(Unit)
                 close()
             }
+        }
+    }
+
+    private fun off(method: Method) {
+        val event = (method.annotations[0] as Off).value
+        if (event.isEmpty()) {
+            socketClient.off()
+        } else {
+            socketClient.off(event)
         }
     }
 }
