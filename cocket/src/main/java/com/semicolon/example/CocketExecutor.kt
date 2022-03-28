@@ -24,7 +24,7 @@ class CocketExecutor(
         return when (method.annotations.first()) {
             is Connect -> connect()
             is Disconnect -> disconnect()
-            is Send -> send(method, args)
+            is Emit -> send(method, args)
             else -> throw IllegalArgumentException("invalid annotation.")
         }
     }
@@ -59,7 +59,7 @@ class CocketExecutor(
 
     private suspend fun send(method: Method, args: Array<Any>): Any {
         require(args.size > 1) { "@Send method should have one parameter" }
-        val event = (method.annotations[0] as Send).value
+        val event = (method.annotations[0] as Emit).value
         val json = JSONObject(Gson().toJson(args[0]))
         return suspendCoroutine {
             socketClient.emit(event, json, object : Ack {

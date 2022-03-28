@@ -8,6 +8,6 @@ import java.lang.annotation.Target;
 
 @Target(METHOD)
 @Retention(RUNTIME)
-public @interface Send {
+public @interface Emit {
     String value() default "";
 }
