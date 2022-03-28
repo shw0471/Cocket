@@ -1,14 +1,15 @@
 package com.semicolon.example
 
-import com.semicolon.example.annotation.Connect
-import com.semicolon.example.annotation.On
-import com.semicolon.example.annotation.Emit
+import com.semicolon.example.annotation.*
 import kotlinx.coroutines.flow.Flow
 
 interface ChatService {
 
     @Connect
     suspend fun connectChatService()
+
+    @Disconnect
+    suspend fun disconnectChatService()
 
     @Emit("send.broadcast")
     suspend fun sendBroadCastMessage(broadcastMessage: BroadcastMessage)
@@ -24,4 +25,7 @@ interface ChatService {
 
     @On("roomMessage")
     fun receiveRoomMessage(): Flow<RoomMessage>
+
+    @Off
+    fun offAllEvents()
 }

@@ -23,6 +23,11 @@ class ChatViewModel @Inject constructor(
         }
     }
 
+    fun disconnectChatService() = viewModelScope.launch {
+        chatService.offAllEvents()
+        chatService.disconnectChatService()
+    }
+
     fun joinChatRoom(roomId: String) = viewModelScope.launch {
         chatService.joinChatRoom(RoomInfo(roomId))
         currentRoomId = roomId
@@ -33,7 +38,7 @@ class ChatViewModel @Inject constructor(
 
     fun sendBroadcastMessage(message: String) =
         viewModelScope.launch {
-            println(chatService.sendBroadCastMessage(BroadcastMessage(message)))
+            chatService.sendBroadCastMessage(BroadcastMessage(message))
         }
 
     fun sendRoomMessage(message: String) =

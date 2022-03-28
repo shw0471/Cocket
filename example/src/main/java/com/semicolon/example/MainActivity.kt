@@ -47,6 +47,11 @@ class MainActivity : AppCompatActivity() {
         observe()
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        viewModel.disconnectChatService()
+    }
+
     private fun observe() {
         val activity = this
         viewModel.apply {
