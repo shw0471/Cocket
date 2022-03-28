@@ -4,13 +4,18 @@ import com.google.gson.Gson
 import com.semicolon.example.annotation.*
 import io.socket.client.Ack
 import io.socket.client.Socket
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.callbackFlow
+import kotlinx.coroutines.launch
 import org.json.JSONObject
 import java.lang.IllegalArgumentException
 import java.lang.reflect.Method
 import java.lang.reflect.ParameterizedType
+import kotlin.coroutines.Continuation
+import kotlin.coroutines.intrinsics.COROUTINE_SUSPENDED
 import kotlin.coroutines.resume
 import kotlin.coroutines.suspendCoroutine
 
@@ -18,6 +23,19 @@ class CocketExecutor(
     private val socketClient: Socket
 ) {
     private val gson = Gson()
+
+    @Suppress("UNCHECKED_CAST")
+    fun execute(method: Method, args: Array<Any>): Any {
+        val continuation = args.lastOrNull() as? Continuation<Any>
+        if (continuation != null) {
+            CoroutineScope(Dispatchers.IO).launch {
+                continuation.resume(executeSuspend(method, args))
+            }
+        } else {
+            return execute(method)
+        }
+        return COROUTINE_SUSPENDED
+    }
 
     suspend fun executeSuspend(method: Method, args: Array<Any>): Any {
         require(method.annotations.size == 1) { "There should be only one annotation." }
