@@ -122,10 +122,10 @@ class CocketExecutor(
 
     private fun once(method: Method): Any {
         require(method.returnType == Flow::class.java) { "@ReceiveOnce method should return coroutine Flow." }
-        val event = (method.annotations[0] as On).value
+        val event = (method.annotations[0] as Once).value
         val genericType = (method.genericReturnType as ParameterizedType).actualTypeArguments[0]
         return callbackFlow<Any> {
-            socketClient.on(event) {
+            socketClient.once(event) {
                 if (genericType != Unit.javaClass)
                     trySend(gson.fromJson(it[0].toString(), genericType))
                 else trySend(Unit)
