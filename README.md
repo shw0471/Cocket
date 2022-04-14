@@ -1,5 +1,5 @@
 # Cocket
-[![](https://jitpack.io/v/shw0471/Cocket.svg)](https://jitpack.io/#shw0471/Cocket)
+[![](https://jitpack.io/v/shw0471/Cocket.svg)](https://jitpack.io/#shw0471/Cocket) [![Android CI](https://github.com/shw0471/Cocket/actions/workflows/ci.yml/badge.svg)](https://github.com/shw0471/Cocket/actions/workflows/ci.yml)
 
 socket.io client with Coroutine
 
